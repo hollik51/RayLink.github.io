@@ -37,24 +37,37 @@
             height: 100%;
             pointer-events: none;
             z-index: 0;
-            opacity: 0.3;
+            overflow: hidden;
         }
 
         .particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 3px;
+            height: 3px;
             background: var(--accent);
             border-radius: 50%;
-            animation: float 20s infinite;
-            box-shadow: 0 0 10px var(--accent);
+            opacity: 0;
+            box-shadow: 0 0 6px var(--accent);
+            animation: float-up linear infinite;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+                transform: translateY(90vh) translateX(var(--drift)) scale(1);
+            }
+            90% {
+                opacity: 0.6;
+                transform: translateY(10vh) translateX(var(--drift)) scale(1);
+            }
+            100% {
+                transform: translateY(-10vh) translateX(calc(var(--drift) * 2)) scale(0);
+                opacity: 0;
+            }
         }
 
         /* Header */
@@ -292,19 +305,87 @@
             margin-bottom: 15px;
         }
 
+        /* Unified Button Style (App Store style) */
+        .store-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #000;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            border: 1px solid #333;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .store-btn:hover {
+            border-color: var(--accent);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(204, 255, 0, 0.2);
+        }
+
+        .store-btn .icon {
+            font-size: 1.5rem;
+        }
+
+        .store-btn .text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+            text-align: left;
+        }
+
+        .store-btn .small {
+            font-size: 0.7rem;
+            color: #999;
+            text-transform: uppercase;
+        }
+
+        .store-btn .big {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
+
+        /* Step Image/GIF */
         .step-image {
             width: 100%;
             max-width: 400px;
-            border-radius: 10px;
-            margin-top: 15px;
+            border-radius: 12px;
+            margin-top: 20px;
             border: 1px solid #333;
+            background: var(--bg);
+            overflow: hidden;
+        }
+
+        .step-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .step-image.gif-container {
+            position: relative;
             background: #000;
-            min-height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
+        }
+
+        .step-image.gif-container::before {
+            content: 'GIF';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent);
+            color: var(--bg);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            z-index: 2;
         }
 
         /* FAQ Section */
@@ -363,6 +444,17 @@
         .faq-item.active .faq-answer {
             max-height: 500px;
             padding: 0 25px 20px;
+        }
+
+        .faq-answer a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent);
+            transition: opacity 0.3s;
+        }
+
+        .faq-answer a:hover {
+            opacity: 0.8;
         }
 
         /* Support Section */
@@ -445,6 +537,7 @@
             .platform-grid { grid-template-columns: 1fr; }
             .step:hover { transform: none; }
             .support-buttons { flex-direction: column; align-items: center; }
+            .step-image { max-width: 100%; }
         }
 
         /* Scrollbar */
@@ -517,22 +610,55 @@
         <div class="step">
             <div class="step-number">1</div>
             <h3>Скачайте приложение</h3>
-            <p>Откройте App Store и найдите приложение по названию, указанному ботом, или используйте прямую ссылку из Telegram.</p>
-            <div class="step-image">[Скриншот App Store]</div>
+            <p>Установите официальное приложение V2RayTun из App Store. Нажмите кнопку ниже для перехода в магазин:</p>
+            <a href="https://apps.apple.com/ru/app/v2raytun/id6476628951" class="store-btn" target="_blank">
+                <span class="icon">🍎</span>
+                <span class="text">
+                    <span class="small">Загрузите в</span>
+                    <span class="big">App Store</span>
+                </span>
+            </a>
         </div>
 
         <div class="step">
             <div class="step-number">2</div>
-            <h3>Установите профиль</h3>
-            <p>В боте RayLink нажмите "Получить конфигурацию" и следуйте инструкциям по установке профиля VPN.</p>
-            <div class="step-image">[GIF установки профиля]</div>
+            <h3>Получите конфигурацию</h3>
+            <p>Скопируйте свой профиль в разделе "👤 Мой профиль" > "🔗 Ссылки".</p>
+            <a href="https://t.me/raylink_service_bot" class="store-btn" target="_blank">
+                <span class="icon">👤</span>
+                <span class="text">
+                    <span class="small">Перейти в</span>
+                    <span class="big">Мой профиль</span>
+                </span>
+            </a>
+            <div class="step-image">
+                <img src="myprofile.png" alt="Раздел Мой профиль в боте RayLink">
+            </div>
         </div>
 
         <div class="step">
             <div class="step-number">3</div>
+            <h3>Импортируйте настройки</h3>
+            <p>Откройте приложение V2RayTun, нажмите "+" и вставьте скопированную ссылку из бота.</p>
+            <button class="store-btn" onclick="openV2RayTun()">
+                <span class="icon">📋</span>
+                <span class="text">
+                    <span class="small">Открыть</span>
+                    <span class="big">V2RayTun</span>
+                </span>
+            </button>
+            <div class="step-image gif-container">
+                <img src="videogif.gif" alt="Импорт конфигурации в V2RayTun">
+            </div>
+        </div>
+
+        <div class="step">
+            <div class="step-number">4</div>
             <h3>Подключитесь</h3>
-            <p>Откройте приложение, выберите сервер и нажмите кнопку подключения. Готово!</p>
-            <div class="step-image">[Скриншот подключения]</div>
+            <p>Выберите добавленную конфигурацию и нажмите кнопку подключения. Готово!</p>
+            <div class="step-image">
+                <img src="iosfive.png" alt="Экран подключения V2RayTun">
+            </div>
         </div>
     </section>
 
@@ -546,22 +672,39 @@
         <div class="step">
             <div class="step-number">1</div>
             <h3>Установите приложение</h3>
-            <p>Скачайте APK-файл по ссылке из бота или найдите приложение в Google Play.</p>
-            <div class="step-image">[Скриншот загрузки]</div>
+            <p>Скачайте V2RayTun из Google Play.</p>
+            <a href="https://play.google.com/store/apps/details?id=com.v2raytun.android&hl=ru" class="store-btn" target="_blank">
+                <span class="icon">🤖</span>
+                <span class="text">
+                    <span class="small">Загрузите в</span>
+                    <span class="big">Google Play</span>
+                </span>
+            </a>
         </div>
 
         <div class="step">
             <div class="step-number">2</div>
-            <h3>Импортируйте конфигурацию</h3>
-            <p>Откройте приложение и импортируйте файл конфигурации, полученный от бота.</p>
-            <div class="step-image">[GIF импорта]</div>
+            <h3>Получите конфигурацию</h3>
+            <p>Скопируйте свой профиль в разделе "👤 Мой профиль" > "🔗 Ссылки".</p>
+            <a href="https://t.me/raylink_service_bot" class="store-btn" target="_blank">
+                <span class="icon">👤</span>
+                <span class="text">
+                    <span class="small">Перейти в</span>
+                    <span class="big">Мой профиль</span>
+                </span>
+            </a>
         </div>
 
         <div class="step">
             <div class="step-number">3</div>
-            <h3>Активируйте VPN</h3>
-            <p>Выберите сервер из списка и нажмите кнопку подключения.</p>
-            <div class="step-image">[Скриншот интерфейса]</div>
+            <h3>Импортируйте настройки</h3>
+            <p>Откройте приложение, нажмите "+" → "Импорт из буфера обмена" и вставьте ссылку из бота.</p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">4</div>
+            <h3>Подключитесь</h3>
+            <p>Выберите добавленную конфигурацию и нажмите кнопку подключения. Готово!</p>
         </div>
     </section>
 
@@ -575,22 +718,39 @@
         <div class="step">
             <div class="step-number">1</div>
             <h3>Загрузите клиент</h3>
-            <p>Скачайте установщик для Windows по ссылке из Telegram-бота.</p>
-            <div class="step-image">[Скриншот загрузки]</div>
+            <p>Скачайте Happ для Windows по ссылке ниже.</p>
+            <a href="https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe" class="store-btn" target="_blank">
+                <span class="icon">💾</span>
+                <span class="text">
+                    <span class="small">Скачать</span>
+                    <span class="big">Happ для Windows</span>
+                </span>
+            </a>
         </div>
 
         <div class="step">
             <div class="step-number">2</div>
             <h3>Установите программу</h3>
-            <p>Запустите установщик и следуйте инструкциям мастера установки.</p>
-            <div class="step-image">[Скриншот установки]</div>
+            <p>Запустите исполняемый файл. Разрешите доступ в брандмауэре при запросе.</p>
         </div>
 
         <div class="step">
             <div class="step-number">3</div>
             <h3>Настройте подключение</h3>
-            <p>Вставьте конфигурационную ссылку из бота в приложение и подключитесь.</p>
-            <div class="step-image">[GIF настройки]</div>
+            <p>Вставьте конфигурационную ссылку из бота (Ctrl+V) или импортируйте QR-код. Скопируйте свой профиль в разделе "👤 Мой профиль" > "🔗 Ссылки".</p>
+            <a href="https://t.me/raylink_service_bot" class="store-btn" target="_blank">
+                <span class="icon">👤</span>
+                <span class="text">
+                    <span class="small">Перейти в</span>
+                    <span class="big">Мой профиль</span>
+                </span>
+            </a>
+        </div>
+
+        <div class="step">
+            <div class="step-number">4</div>
+            <h3>Подключитесь</h3>
+            <p>Выберите добавленную конфигурацию и нажмите кнопку подключения. Готово!</p>
         </div>
     </section>
 
@@ -604,21 +764,21 @@
         <div class="step">
             <div class="step-number">1</div>
             <h3>Скачайте приложение</h3>
-            <p>Загрузите .dmg файл из бота или установите из Mac App Store.</p>
+            <p>Установите V2RayXS или V2RayU из раздела релизов на GitHub или по ссылке из бота.</p>
             <div class="step-image">[Скриншот загрузки]</div>
         </div>
 
         <div class="step">
             <div class="step-number">2</div>
-            <h3>Установите приложение</h3>
-            <p>Перетащите иконку приложения в папку Applications.</p>
-            <div class="step-image">[Скриншот установки]</div>
+            <h3>Установите и разрешите</h3>
+            <p>Перетащите приложение в Applications. В настройках безопасности разрешите запуск от неустановленного разработчика.</p>
+            <div class="step-image">[Скриншот настроек безопасности]</div>
         </div>
 
         <div class="step">
             <div class="step-number">3</div>
             <h3>Запустите и настройте</h3>
-            <p>Откройте приложение, импортируйте конфигурацию из бота и подключитесь.</p>
+            <p>Откройте приложение из меню бар, импортируйте конфигурацию из бота и подключитесь.</p>
             <div class="step-image">[Скриншот интерфейса]</div>
         </div>
     </section>
@@ -633,7 +793,7 @@
                 <span class="faq-icon">+</span>
             </div>
             <div class="faq-answer">
-                Напишите нашему боту @raylink_service_bot команду /trial и следуйте инструкциям. Пробный период составляет 3 дня с полным доступом ко всем серверам.
+                Пробный период составляет <strong>24 часа</strong> с полным доступом ко всем серверам. Для активации напишите нашему боту <a href="https://t.me/raylink_service_bot" target="_blank">@raylink_service_bot</a> — менеджер выдаст вам тестовый доступ.
             </div>
         </div>
 
@@ -643,7 +803,7 @@
                 <span class="faq-icon">+</span>
             </div>
             <div class="faq-answer">
-                Да, одна подписка работает на 3 устройствах одновременно. Вы можете использовать RayLink на телефоне, планшете и компьютере.
+                Да, одна подписка работает на <strong>2 устройствах</strong> одновременно. Вы можете использовать RayLink на телефоне и компьютере. Также профили совместимы с Android TV и Apple TV — подключайте VPN прямо на телевизоре!
             </div>
         </div>
 
@@ -666,7 +826,7 @@
                 1. Проверьте интернет-соединение без VPN<br>
                 2. Попробуйте другой сервер из списка<br>
                 3. Обновите конфигурацию в боте<br>
-                4. Если ничего не помогает — напишите в поддержку @RayLinkSupport
+                4. Если ничего не помогает — напишите в поддержку <a href="https://t.me/RayLinkSupport" target="_blank">@RayLinkSupport</a>
             </div>
         </div>
 
@@ -676,7 +836,7 @@
                 <span class="faq-icon">+</span>
             </div>
             <div class="faq-answer">
-                Откройте бота @raylink_service_bot, выберите раздел "💳 Оплата" и следуйте инструкциям. Подписка продлится автоматически после оплаты.
+                Откройте бота <a href="https://t.me/raylink_service_bot" target="_blank">@raylink_service_bot</a>, выберите раздел <strong>"💳 Тарифы (Оплата)"</strong> и следуйте инструкциям. Подписка продлится автоматически после оплаты.
             </div>
         </div>
     </section>
@@ -711,40 +871,56 @@
         // Create floating particles
         function createParticles() {
             const container = document.getElementById('particles');
-            for (let i = 0; i < 20; i++) {
+            const particleCount = 15;
+            
+            for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
+                
                 particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                
+                const drift = (Math.random() - 0.5) * 100;
+                particle.style.setProperty('--drift', drift + 'px');
+                
+                const duration = 15 + Math.random() * 10;
+                particle.style.animationDuration = duration + 's';
+                
+                particle.style.animationDelay = (Math.random() * duration) + 's';
+                
+                const size = 2 + Math.random() * 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
                 container.appendChild(particle);
             }
         }
 
+        // Open V2RayTun app
+        function openV2RayTun() {
+            window.location.href = 'v2raytun://';
+            setTimeout(() => {
+                alert('Если приложение не открылось автоматически:\n1. Откройте V2RayTun вручную\n2. Нажмите "+"\n3. Выберите "Импорт из буфера обмена"');
+            }, 500);
+        }
+
         // Show instructions for selected platform
         function showInstructions(platform) {
-            // Hide platforms
             document.getElementById('platforms').style.display = 'none';
             
-            // Show selected instructions
             const instructions = document.getElementById(platform + '-instructions');
             instructions.classList.add('active');
             
-            // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // Back to platform selection
         function backToPlatforms() {
-            // Hide all instructions
             document.querySelectorAll('.instructions').forEach(el => {
                 el.classList.remove('active');
             });
             
-            // Show platforms
             document.getElementById('platforms').style.display = 'block';
             
-            // Scroll to platforms
             document.getElementById('platforms').scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -753,12 +929,10 @@
             const item = element.parentElement;
             const isActive = item.classList.contains('active');
             
-            // Close all
             document.querySelectorAll('.faq-item').forEach(el => {
                 el.classList.remove('active');
             });
             
-            // Open clicked if wasn't active
             if (!isActive) {
                 item.classList.add('active');
             }
@@ -782,7 +956,6 @@
             });
         }, observerOptions);
 
-        // Observe elements
         document.querySelectorAll('.step, .faq-item').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(20px)';
