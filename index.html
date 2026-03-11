@@ -2,173 +2,129 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RayLink — Инструкция по установке</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>RayLink | Инструкция</title>
+    
+    <!-- Подключение шрифтов Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg-color: #0A0A0A;
+            --card-bg: #111111;
+            --accent-color: #CCFF00;
+            --text-main: #FFFFFF;
+            --text-muted: #888888;
+            --border-color: #222222;
+            --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        :root {
-            --bg: #0A0A0A;
-            --accent: #CCFF00;
-            --text: #FFFFFF;
-            --text-muted: #888888;
-            --card-bg: #111111;
-            --card-hover: #1a1a1a;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: var(--bg);
-            color: var(--text);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Animated background particles */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: var(--accent);
-            border-radius: 50%;
-            opacity: 0;
-            box-shadow: 0 0 6px var(--accent);
-            animation: float-up linear infinite;
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(204, 255, 0, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(204, 255, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(204, 255, 0, 0); }
         }
 
-        @keyframes float-up {
-            0% {
-                transform: translateY(100vh) translateX(0) scale(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.6;
-                transform: translateY(90vh) translateX(var(--drift)) scale(1);
-            }
-            90% {
-                opacity: 0.6;
-                transform: translateY(10vh) translateX(var(--drift)) scale(1);
-            }
-            100% {
-                transform: translateY(-10vh) translateX(calc(var(--drift) * 2)) scale(0);
-                opacity: 0;
-            }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
 
-        /* Header */
+        .container {
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 24px;
+            animation: fadeIn 0.8s var(--transition-smooth);
+        }
+
         header {
-            position: relative;
-            z-index: 10;
-            padding: 40px 20px;
             text-align: center;
-            background: linear-gradient(180deg, rgba(10,10,10,0.8) 0%, rgba(10,10,10,0) 100%);
+            padding: 40px 0 30px;
         }
 
         .logo {
-            font-size: 3rem;
-            font-weight: 900;
-            letter-spacing: -2px;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+            font-family: 'Syncopate', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #fff 0%, #aaa 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: glow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { filter: drop-shadow(0 0 20px rgba(204, 255, 0, 0.3)); }
-            to { filter: drop-shadow(0 0 40px rgba(204, 255, 0, 0.6)); }
+            text-transform: uppercase;
         }
 
         .subtitle {
             color: var(--text-muted);
-            font-size: 1.2rem;
-            margin-bottom: 30px;
+            font-size: 14px;
+            font-weight: 400;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        .bot-button {
+        .tg-btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: var(--accent);
-            color: var(--bg);
+            background-color: var(--accent-color);
+            color: #000;
             padding: 16px 32px;
-            border-radius: 50px;
+            border-radius: 100px;
             text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(204, 255, 0, 0.3);
-            position: relative;
-            overflow: hidden;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            margin-top: 24px;
+            transition: all 0.4s var(--transition-smooth);
+            animation: pulse 2s infinite;
         }
 
-        .bot-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.5s;
+        .tg-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(204, 255, 0, 0.3);
         }
 
-        .bot-button:hover::before {
-            left: 100%;
+        .tg-btn svg {
+            width: 20px;
+            height: 20px;
         }
 
-        .bot-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(204, 255, 0, 0.5);
-        }
-
-        /* Platform Selector */
         .platforms {
-            position: relative;
-            z-index: 10;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 40px;
-            color: var(--text);
-        }
-
-        .platform-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 60px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 40px 0;
         }
 
         .platform-card {
             background: var(--card-bg);
-            border: 2px solid transparent;
+            border: 1px solid var(--border-color);
             border-radius: 20px;
-            padding: 30px;
+            padding: 24px 16px;
+            text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s var(--transition-smooth);
             position: relative;
             overflow: hidden;
         }
@@ -178,790 +134,927 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(204, 255, 0, 0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s;
+            right: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transform: scaleX(0);
+            transition: transform 0.4s var(--transition-smooth);
         }
 
-        .platform-card:hover::before,
-        .platform-card.active::before {
-            opacity: 1;
+        .platform-card:hover {
+            border-color: #333;
+            transform: translateY(-4px);
         }
 
-        .platform-card:hover,
         .platform-card.active {
-            border-color: var(--accent);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(204, 255, 0, 0.2);
+            border-color: var(--accent-color);
+            background: rgba(204, 255, 0, 0.03);
+        }
+
+        .platform-card.active::before {
+            transform: scaleX(1);
         }
 
         .platform-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            display: block;
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 12px;
+            transition: all 0.4s var(--transition-smooth);
+        }
+
+        .platform-card.active .platform-icon {
+            animation: float 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px rgba(204, 255, 0, 0.5));
+        }
+
+        .platform-icon path {
+            fill: var(--text-muted);
+            transition: fill 0.4s ease;
+        }
+
+        .platform-card.active .platform-icon path {
+            fill: var(--accent-color);
         }
 
         .platform-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .platform-desc {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
             color: var(--text-muted);
-            font-size: 0.9rem;
+            transition: color 0.4s ease;
         }
 
-        /* Instructions Section */
-        .instructions {
-            position: relative;
-            z-index: 10;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 20px 60px;
+        .platform-card.active .platform-name {
+            color: var(--text-main);
+        }
+
+        .instruction-wrapper {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 40px;
+        }
+
+        .instruction-section {
             display: none;
         }
 
-        .instructions.active {
+        .instruction-section.active {
             display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .instruction-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid var(--card-bg);
-        }
-
-        .instruction-header h2 {
-            font-size: 1.8rem;
-        }
-
-        .back-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--text-muted);
-            color: var(--text);
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .back-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
+            animation: fadeIn 0.5s var(--transition-smooth);
         }
 
         .step {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 20px;
             position: relative;
-            border-left: 4px solid var(--accent);
-            transition: transform 0.3s;
+            padding-left: 24px;
+            margin-bottom: 32px;
         }
 
-        .step:hover {
-            transform: translateX(10px);
+        .step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent-color), transparent);
+            border-radius: 2px;
         }
 
         .step-number {
-            position: absolute;
-            top: -15px;
-            left: 20px;
-            background: var(--accent);
-            color: var(--bg);
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: inline-block;
+            background: var(--accent-color);
+            color: #000;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
             font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        .step h3 {
+            padding: 4px 10px;
+            border-radius: 100px;
             margin-bottom: 10px;
-            color: var(--accent);
-            font-size: 1.2rem;
-            margin-top: 10px;
+            letter-spacing: 0.5px;
         }
 
-        .step p {
+        .step-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .step-desc {
             color: var(--text-muted);
-            margin-bottom: 15px;
+            font-size: 14px;
+            line-height: 1.7;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        /* Unified Button Style (App Store style) */
-        .store-btn {
+        /* Кнопка App Store */
+        .app-store-btn {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            background: #000;
+            gap: 16px;
+            background: linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%);
             color: #fff;
-            padding: 12px 24px;
-            border-radius: 12px;
+            padding: 18px 32px;
+            border-radius: 16px;
             text-decoration: none;
-            border: 1px solid #333;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 1rem;
-        }
-
-        .store-btn:hover {
-            border-color: var(--accent);
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(204, 255, 0, 0.2);
-        }
-
-        .store-btn .icon {
-            font-size: 1.5rem;
-        }
-
-        .store-btn .text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-            text-align: left;
-        }
-
-        .store-btn .small {
-            font-size: 0.7rem;
-            color: #999;
-            text-transform: uppercase;
-        }
-
-        .store-btn .big {
-            font-size: 1.1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
             font-weight: 600;
-            letter-spacing: -0.5px;
-        }
-
-        /* Step Image/GIF */
-        .step-image {
-            width: 100%;
-            max-width: 400px;
-            border-radius: 12px;
-            margin-top: 20px;
+            margin-top: 16px;
+            transition: all 0.4s var(--transition-smooth);
             border: 1px solid #333;
-            background: var(--bg);
+            min-width: 280px;
+            justify-content: flex-start;
+            position: relative;
             overflow: hidden;
         }
 
-        .step-image img {
+        .app-store-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(204, 255, 0, 0.1), transparent);
+            transition: left 0.6s var(--transition-smooth);
+        }
+
+        .app-store-btn:hover::before {
+            left: 100%;
+        }
+
+        .app-store-btn:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(204, 255, 0, 0.15);
+        }
+
+        .app-store-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .app-store-btn svg {
+            width: 38px;
+            height: 38px;
+            flex-shrink: 0;
+            transition: all 0.4s var(--transition-smooth);
+            fill: var(--accent-color);
+        }
+
+        .app-store-btn:hover svg {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 8px rgba(204, 255, 0, 0.6));
+        }
+
+        .app-store-btn .btn-content {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.3;
+        }
+
+        .app-store-btn .btn-content small {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .app-store-btn .btn-content span {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        /* Кнопка Windows Download */
+        .windows-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            background: linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%);
+            color: #fff;
+            padding: 18px 32px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 16px;
+            transition: all 0.4s var(--transition-smooth);
+            border: 1px solid #333;
+            min-width: 280px;
+            justify-content: flex-start;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .windows-download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(204, 255, 0, 0.1), transparent);
+            transition: left 0.6s var(--transition-smooth);
+        }
+
+        .windows-download-btn:hover::before {
+            left: 100%;
+        }
+
+        .windows-download-btn:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(204, 255, 0, 0.15);
+        }
+
+        .windows-download-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .windows-download-btn svg {
+            width: 38px;
+            height: 38px;
+            flex-shrink: 0;
+            transition: all 0.4s var(--transition-smooth);
+            fill: var(--accent-color);
+        }
+
+        .windows-download-btn:hover svg {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 8px rgba(204, 255, 0, 0.6));
+        }
+
+        .windows-download-btn .btn-content {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.3;
+        }
+
+        .windows-download-btn .btn-content small {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .windows-download-btn .btn-content span {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        /* Кнопка Google Play - С ANDROID SVG */
+        .google-play-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            background: linear-gradient(145deg, #1a1a1a 0%, #0d0d0d 100%);
+            color: #fff;
+            padding: 18px 32px;
+            border-radius: 16px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            margin-top: 16px;
+            transition: all 0.4s var(--transition-smooth);
+            border: 1px solid #333;
+            min-width: 280px;
+            justify-content: flex-start;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .google-play-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(204, 255, 0, 0.1), transparent);
+            transition: left 0.6s var(--transition-smooth);
+        }
+
+        .google-play-btn:hover::before {
+            left: 100%;
+        }
+
+        .google-play-btn:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(204, 255, 0, 0.15);
+        }
+
+        .google-play-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .google-play-btn svg {
+            width: 38px;
+            height: 38px;
+            flex-shrink: 0;
+            transition: all 0.4s var(--transition-smooth);
+            fill: var(--accent-color);
+        }
+
+        .google-play-btn:hover svg {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 8px rgba(204, 255, 0, 0.6));
+        }
+
+        .google-play-btn .btn-content {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.3;
+        }
+
+        .google-play-btn .btn-content small {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+        }
+
+        .google-play-btn .btn-content span {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        /* Медиа контейнер */
+        .media-container {
+            margin-top: 16px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: #000;
+            position: relative;
+        }
+
+        .media-container img,
+        .media-container video {
             width: 100%;
             height: auto;
             display: block;
         }
 
-        .step-image.gif-container {
-            position: relative;
-            background: #000;
+        .media-container video {
+            border-radius: 16px;
         }
 
-        .step-image.gif-container::before {
-            content: 'GIF';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--accent);
-            color: var(--bg);
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            z-index: 2;
-        }
-
-        /* FAQ Section */
-        .faq-section {
-            position: relative;
-            z-index: 10;
-            max-width: 800px;
-            margin: 0 auto;
+        /* Сообщение "В разработке" */
+        .coming-soon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             padding: 60px 20px;
+            text-align: center;
+        }
+
+        .coming-soon-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        .coming-soon-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .coming-soon-desc {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            max-width: 400px;
+        }
+
+        .coming-soon-badge {
+            display: inline-block;
+            background: rgba(204, 255, 0, 0.1);
+            color: var(--accent-color);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 100px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 1px solid rgba(204, 255, 0, 0.3);
+        }
+
+        /* FAQ Аккордеон */
+        .faq {
+            margin-bottom: 40px;
+        }
+
+        .faq-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            padding-left: 4px;
+            letter-spacing: -0.5px;
         }
 
         .faq-item {
-            background: var(--card-bg);
-            border-radius: 15px;
-            margin-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
             overflow: hidden;
-            border: 1px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .faq-item:hover {
-            border-color: rgba(204, 255, 0, 0.3);
         }
 
         .faq-question {
-            padding: 20px 25px;
+            padding: 22px 0;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: 600;
-            transition: color 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            transition: color 0.3s ease;
+            user-select: none;
         }
 
         .faq-question:hover {
-            color: var(--accent);
+            color: var(--accent-color);
         }
 
         .faq-icon {
-            transition: transform 0.3s;
-            color: var(--accent);
-            font-size: 1.5rem;
+            width: 24px;
+            height: 24px;
+            position: relative;
+            flex-shrink: 0;
+            margin-left: 16px;
         }
 
-        .faq-item.active .faq-icon {
-            transform: rotate(45deg);
+        .faq-icon::before,
+        .faq-icon::after {
+            content: '';
+            position: absolute;
+            background: var(--accent-color);
+            border-radius: 2px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-icon::before {
+            width: 14px;
+            height: 2px;
+            top: 11px;
+            left: 5px;
+        }
+
+        .faq-icon::after {
+            width: 2px;
+            height: 14px;
+            top: 5px;
+            left: 11px;
+            opacity: 1;
+            transform: rotate(0deg);
+        }
+
+        .faq-item.active .faq-icon::after {
+            opacity: 0;
+            transform: rotate(90deg);
+        }
+
+        .faq-answer-wrapper {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .faq-item.active .faq-answer-wrapper {
+            grid-template-rows: 1fr;
         }
 
         .faq-answer {
-            max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
-            color: var(--text-muted);
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
         }
 
         .faq-item.active .faq-answer {
-            max-height: 500px;
-            padding: 0 25px 20px;
+            opacity: 1;
+            transform: translateY(0);
+            padding-bottom: 22px;
+        }
+        
+        .faq-answer p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.7;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .faq-answer a {
-            color: var(--accent);
+            color: var(--accent-color);
             text-decoration: none;
-            border-bottom: 1px solid var(--accent);
-            transition: opacity 0.3s;
+            font-weight: 500;
         }
 
         .faq-answer a:hover {
-            opacity: 0.8;
+            text-decoration: underline;
         }
 
-        /* Support Section */
         .support-section {
-            position: relative;
-            z-index: 10;
             text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(180deg, transparent 0%, rgba(204, 255, 0, 0.05) 100%);
+            padding: 40px 20px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .support-title {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 400;
         }
 
         .support-buttons {
             display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 30px;
+            flex-direction: column;
+            gap: 12px;
         }
 
-        .support-btn {
+        .btn-support {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 16px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            border: 2px solid;
-        }
-
-        .support-btn.primary {
-            background: var(--accent);
-            color: var(--bg);
-            border-color: var(--accent);
-        }
-
-        .support-btn.secondary {
-            background: transparent;
-            color: var(--accent);
-            border-color: var(--accent);
-        }
-
-        .support-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(204, 255, 0, 0.3);
-        }
-
-        /* Footer */
-        footer {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-muted);
-            border-top: 1px solid #222;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 20px;
             justify-content: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
+            gap: 10px;
+            padding: 14px 28px;
+            border-radius: 100px;
             text-decoration: none;
-            transition: color 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s var(--transition-smooth);
         }
 
-        .footer-links a:hover {
-            color: var(--accent);
+        .btn-primary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            border: 1px solid transparent;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .logo { font-size: 2rem; }
-            .platform-grid { grid-template-columns: 1fr; }
-            .step:hover { transform: none; }
-            .support-buttons { flex-direction: column; align-items: center; }
-            .step-image { max-width: 100%; }
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--accent-color);
+            color: var(--accent-color);
         }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
+        .btn-secondary {
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
         }
 
-        ::-webkit-scrollbar-track {
-            background: var(--bg);
+        .btn-secondary:hover {
+            border-color: var(--text-muted);
+            color: var(--text-main);
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
+        .svg-icon {
+            display: block;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
 <body>
-    <!-- Animated Background -->
-    <div class="bg-animation" id="particles"></div>
 
-    <!-- Header -->
+<div class="container">
     <header>
         <div class="logo">RayLink</div>
-        <p class="subtitle">Быстрый и безопасный VPN-сервис</p>
-        <a href="https://t.me/raylink_service_bot" class="bot-button" target="_blank">
-            <span>🚀</span>
-            <span>Открыть бота в Telegram</span>
+        <p class="subtitle">Инструкция по настройке</p>
+        <a href="https://t.me/raylink_service_bot" class="tg-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.44-.42-1.38-.88.03-.24.38-.49 1.03-.74 4.04-1.76 6.74-2.92 8.09-3.48 3.85-1.6 4.64-1.89 5.17-1.89.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.13-.03.25z"/>
+            </svg>
+            Запустить бота
         </a>
     </header>
 
-    <!-- Platform Selection -->
-    <section class="platforms" id="platforms">
-        <h2 class="section-title">Выберите платформу</h2>
-        <div class="platform-grid">
-            <div class="platform-card" onclick="showInstructions('ios')">
-                <span class="platform-icon">📱</span>
-                <div class="platform-name">iOS</div>
-                <div class="platform-desc">iPhone и iPad</div>
+    <!-- Платформы -->
+    <div class="platforms">
+        <div class="platform-card active" onclick="showInstruction('ios', this)">
+            <div class="platform-icon">
+                <svg class="svg-icon" viewBox="0 0 384 512">
+                    <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/>
+                </svg>
             </div>
-            <div class="platform-card" onclick="showInstructions('android')">
-                <span class="platform-icon">🤖</span>
-                <div class="platform-name">Android</div>
-                <div class="platform-desc">Смартфоны и планшеты</div>
-            </div>
-            <div class="platform-card" onclick="showInstructions('windows')">
-                <span class="platform-icon">💻</span>
-                <div class="platform-name">Windows</div>
-                <div class="platform-desc">PC и ноутбуки</div>
-            </div>
-            <div class="platform-card" onclick="showInstructions('mac')">
-                <span class="platform-icon">🍎</span>
-                <div class="platform-name">macOS</div>
-                <div class="platform-desc">MacBook и iMac</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- iOS Instructions -->
-    <section class="instructions" id="ios-instructions">
-        <div class="instruction-header">
-            <button class="back-btn" onclick="backToPlatforms()">← Назад</button>
-            <h2>📱 Установка на iOS</h2>
-        </div>
-        
-        <div class="step">
-            <div class="step-number">1</div>
-            <h3>Скачайте приложение</h3>
-            <p>Установите официальное приложение V2RayTun из App Store. Нажмите кнопку ниже для перехода в магазин:</p>
-            <a href="https://apps.apple.com/ru/app/v2raytun/id6476628951" class="store-btn" target="_blank">
-                <span class="icon">🍎</span>
-                <span class="text">
-                    <span class="small">Загрузите в</span>
-                    <span class="big">App Store</span>
-                </span>
-            </a>
+            <span class="platform-name">iOS</span>
         </div>
 
-        <div class="step">
-            <div class="step-number">2</div>
-            <h3>Получите конфигурацию</h3>
-            <p>Скопируйте свой профиль в разделе "👤 Мой профиль" > "🔗 Ссылки".</p>
-            <a href="https://t.me/raylink_service_bot" class="store-btn" target="_blank">
-                <span class="icon">👤</span>
-                <span class="text">
-                    <span class="small">Перейти в</span>
-                    <span class="big">Мой профиль</span>
-                </span>
-            </a>
-            <div class="step-image">
-                <img src="myprofile.png" alt="Раздел Мой профиль в боте RayLink">
+        <div class="platform-card" onclick="showInstruction('android', this)">
+            <div class="platform-icon">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0001.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0225 3.503C15.5902 8.2033 13.8533 7.758 12 7.758c-1.8532 0-3.5901.4453-5.1366 1.1917L4.8409 5.4467a.4161.4161 0 00-.5676-.1521.4157.4157 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3432-4.1021-2.6889-7.5743-6.1185-9.4396"/>
+                </svg>
             </div>
+            <span class="platform-name">Android</span>
         </div>
 
-        <div class="step">
-            <div class="step-number">3</div>
-            <h3>Импортируйте настройки</h3>
-            <p>Откройте приложение V2RayTun, нажмите "+" и вставьте скопированную ссылку из бота.</p>
-            <button class="store-btn" onclick="openV2RayTun()">
-                <span class="icon">📋</span>
-                <span class="text">
-                    <span class="small">Открыть</span>
-                    <span class="big">V2RayTun</span>
-                </span>
-            </button>
-            <div class="step-image gif-container">
-                <img src="videogif.gif" alt="Импорт конфигурации в V2RayTun">
+        <div class="platform-card" onclick="showInstruction('windows', this)">
+            <div class="platform-icon">
+                <svg class="svg-icon" viewBox="0 0 24 24">
+                    <path d="M3 5.5L10.5 4.5V11.5H3V5.5ZM12 4.25L21 3V11.5H12V4.25ZM3 13H10.5V20.5L3 19.5V13ZM12 13H21V22L12 20.75V13Z"/>
+                </svg>
             </div>
+            <span class="platform-name">Windows</span>
         </div>
 
-        <div class="step">
-            <div class="step-number">4</div>
-            <h3>Подключитесь</h3>
-            <p>Выберите добавленную конфигурацию и нажмите кнопку подключения. Готово!</p>
-            <div class="step-image">
-                <img src="iosfive.png" alt="Экран подключения V2RayTun">
+        <div class="platform-card" onclick="showInstruction('mac', this)">
+            <div class="platform-icon">
+                <svg class="svg-icon" viewBox="0 0 384 512">
+                    <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/>
+                </svg>
+            </div>
+            <span class="platform-name">macOS</span>
+        </div>
+    </div>
+
+    <!-- Инструкции -->
+    <div class="instruction-wrapper">
+        <!-- iOS -->
+        <div id="instr-ios" class="instruction-section active">
+            <div class="step">
+                <span class="step-number">01</span>
+                <h3 class="step-title">Скачайте приложение</h3>
+                <p class="step-desc">Установите официальное приложение V2RayTun из App Store:</p>
+                <a href="https://apps.apple.com/ru/app/v2raytun/id6476628951" class="app-store-btn" target="_blank">
+                    <svg viewBox="0 0 384 512">
+                        <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/>
+                    </svg>
+                    <div class="btn-content">
+                        <small>Загрузить в</small>
+                        <span>App Store</span>
+                    </div>
+                </a>
+            </div>
+            <div class="step">
+                <span class="step-number">02</span>
+                <h3 class="step-title">Получите конфигурацию</h3>
+                <p class="step-desc">Скопируйте свой профиль в разделе <strong>👤 Мой профиль > 🔗 Ссылки</strong> в боте RayLink.</p>
+                <div class="media-container">
+                    <img src="media/ios/step2.png" alt="Копирование профиля">
+                </div>
+            </div>
+            <div class="step">
+                <span class="step-number">03</span>
+                <h3 class="step-title">Импортируйте профиль</h3>
+                <p class="step-desc">Откройте приложение V2RayTun, нажмите <strong>«+»</strong> и вставьте скопированную ссылку из бота.</p>
+                <div class="media-container">
+                    <video autoplay loop muted playsinline controls>
+                        <source src="media/ios/step3.mp4" type="video/mp4">
+                        Ваш браузер не поддерживает видео.
+                    </video>
+                </div>
+            </div>
+            <div class="step">
+                <span class="step-number">04</span>
+                <h3 class="step-title">Подключитесь</h3>
+                <p class="step-desc">Выберите добавленную конфигурацию и нажмите кнопку подключения. Готово!</p>
+                <div class="media-container">
+                    <img src="media/ios/step4.png" alt="Подключение">
+                </div>
             </div>
         </div>
-    </section>
 
-    <!-- Android Instructions -->
-    <section class="instructions" id="android-instructions">
-        <div class="instruction-header">
-            <button class="back-btn" onclick="backToPlatforms()">← Назад</button>
-            <h2>🤖 Установка на Android</h2>
-        </div>
-        
-        <div class="step">
-            <div class="step-number">1</div>
-            <h3>Установите приложение</h3>
-            <p>Скачайте V2RayTun из Google Play.</p>
-            <a href="https://play.google.com/store/apps/details?id=com.v2raytun.android&hl=ru" class="store-btn" target="_blank">
-                <span class="icon">🤖</span>
-                <span class="text">
-                    <span class="small">Загрузите в</span>
-                    <span class="big">Google Play</span>
-                </span>
-            </a>
-        </div>
-
-        <div class="step">
-            <div class="step-number">2</div>
-            <h3>Получите конфигурацию</h3>
-            <p>Скопируйте свой профиль в разделе "👤 Мой профиль" > "🔗 Ссылки".</p>
-            <a href="https://t.me/raylink_service_bot" class="store-btn" target="_blank">
-                <span class="icon">👤</span>
-                <span class="text">
-                    <span class="small">Перейти в</span>
-                    <span class="big">Мой профиль</span>
-                </span>
-            </a>
-        </div>
-
-        <div class="step">
-            <div class="step-number">3</div>
-            <h3>Импортируйте настройки</h3>
-            <p>Откройте приложение, нажмите "+" → "Импорт из буфера обмена" и вставьте ссылку из бота.</p>
-        </div>
-
-        <div class="step">
-            <div class="step-number">4</div>
-            <h3>Подключитесь</h3>
-            <p>Выберите добавленную конфигурацию и нажмите кнопку подключения. Готово!</p>
-        </div>
-    </section>
-
-    <!-- Windows Instructions -->
-    <section class="instructions" id="windows-instructions">
-        <div class="instruction-header">
-            <button class="back-btn" onclick="backToPlatforms()">← Назад</button>
-            <h2>💻 Установка на Windows</h2>
-        </div>
-        
-        <div class="step">
-            <div class="step-number">1</div>
-            <h3>Загрузите клиент</h3>
-            <p>Скачайте Happ для Windows по ссылке ниже.</p>
-            <a href="https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe" class="store-btn" target="_blank">
-                <span class="icon">💾</span>
-                <span class="text">
-                    <span class="small">Скачать</span>
-                    <span class="big">Happ для Windows</span>
-                </span>
-            </a>
+        <!-- Android -->
+        <div id="instr-android" class="instruction-section">
+            <div class="step">
+                <span class="step-number">01</span>
+                <h3 class="step-title">Скачайте приложение</h3>
+                <p class="step-desc">Установите официальное приложение V2RayTun из Google Play:</p>
+                <a href="https://play.google.com/store/apps/details?id=com.v2raytun.android" class="google-play-btn" target="_blank">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0001.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0225 3.503C15.5902 8.2033 13.8533 7.758 12 7.758c-1.8532 0-3.5901.4453-5.1366 1.1917L4.8409 5.4467a.4161.4161 0 00-.5676-.1521.4157.4157 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3432-4.1021-2.6889-7.5743-6.1185-9.4396"/>
+                    </svg>
+                    <div class="btn-content">
+                        <small>Загрузить в</small>
+                        <span>Google Play</span>
+                    </div>
+                </a>
+            </div>
+            <div class="step">
+                <span class="step-number">02</span>
+                <h3 class="step-title">Получите конфигурацию</h3>
+                <p class="step-desc">Скопируйте свой профиль в разделе <strong>👤 Мой профиль > 🔗 Ссылки</strong> в боте RayLink.</p>
+                <div class="media-container">
+                    <img src="media/android/step2.png" alt="Копирование профиля">
+                </div>
+            </div>
+            <div class="step">
+                <span class="step-number">03</span>
+                <h3 class="step-title">Импортируйте профиль</h3>
+                <p class="step-desc">Откройте приложение, нажмите <strong>«+»</strong></p>
+                <div class="media-container">
+                    <img src="media/android/step3_1.png" alt="Нажмите плюс">
+                </div>
+                <p class="step-desc" style="margin-top: 16px;"><strong>«Импорт из буфера обмена»</strong> и вставьте ссылку из бота.</p>
+                <div class="media-container">
+                    <img src="media/android/step3_2.png" alt="Импорт из буфера обмена">
+                </div>
+            </div>
+            <div class="step">
+                <span class="step-number">04</span>
+                <h3 class="step-title">Подключитесь</h3>
+                <p class="step-desc">Выберите добавленную конфигурацию и нажмите кнопку подключения. Готово!</p>
+                <div class="media-container">
+                    <img src="media/android/step4.png" alt="Подключение">
+                </div>
+            </div>
         </div>
 
-        <div class="step">
-            <div class="step-number">2</div>
-            <h3>Установите программу</h3>
-            <p>Запустите исполняемый файл. Разрешите доступ в брандмауэре при запросе.</p>
+        <!-- Windows -->
+        <div id="instr-windows" class="instruction-section">
+            <div class="step">
+                <span class="step-number">01</span>
+                <h3 class="step-title">Загрузите клиент</h3>
+                <p class="step-desc">Скачайте Happ для Windows:</p>
+                <a href="https://github.com/Happ-proxy/happ-desktop/releases/latest/download/setup-Happ.x64.exe" class="windows-download-btn" target="_blank">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 5.5L10.5 4.5V11.5H3V5.5ZM12 4.25L21 3V11.5H12V4.25ZM3 13H10.5V20.5L3 19.5V13ZM12 13H21V22L12 20.75V13Z"/>
+                    </svg>
+                    <div class="btn-content">
+                        <small>Скачать</small>
+                        <span>HAPP для Windows</span>
+                    </div>
+                </a>
+            </div>
+            <div class="step">
+                <span class="step-number">02</span>
+                <h3 class="step-title">Запуск установщика</h3>
+                <p class="step-desc">Запустите скачанный .exe файл и следуйте инструкциям мастера установки.</p>
+            </div>
+            <div class="step">
+                <span class="step-number">03</span>
+                <h3 class="step-title">Получите конфигурацию</h3>
+                <p class="step-desc">Скопируйте свой профиль в разделе <strong>👤 Мой профиль > 🔗 Ссылки</strong> в боте RayLink.</p>
+                <div class="media-container">
+                    <img src="media/windows/step3.png" alt="Копирование профиля">
+                </div>
+            </div>
+            <div class="step">
+                <span class="step-number">04</span>
+                <h3 class="step-title">Настройте подключение</h3>
+                <p class="step-desc">Вставьте конфигурационную ссылку из бота (Ctrl+V)</p>
+                <div class="media-container">
+                    <img src="media/windows/step4_1.png" alt="Вставка конфигурации">
+                </div>
+                <p class="step-desc" style="margin-top: 16px;">Убедитесь, что у вас включен режим TUN</p>
+                <div class="media-container">
+                    <img src="media/windows/step4_2.png" alt="Режим TUN">
+                </div>
+            </div>
+            <div class="step">
+                <span class="step-number">05</span>
+                <h3 class="step-title">Подключитесь</h3>
+                <p class="step-desc">Выберите добавленную конфигурацию и нажмите кнопку подключения. Готово!</p>
+                <div class="media-container">
+                    <img src="media/windows/step5.png" alt="Подключение">
+                </div>
+            </div>
         </div>
 
-        <div class="step">
-            <div class="step-number">3</div>
-            <h3>Настройте подключение</h3>
-            <p>Вставьте конфигурационную ссылку из бота (Ctrl+V) или импортируйте QR-код. Скопируйте свой профиль в разделе "👤 Мой профиль" > "🔗 Ссылки".</p>
-            <a href="https://t.me/raylink_service_bot" class="store-btn" target="_blank">
-                <span class="icon">👤</span>
-                <span class="text">
-                    <span class="small">Перейти в</span>
-                    <span class="big">Мой профиль</span>
-                </span>
-            </a>
+        <!-- Mac - В РАЗРАБОТКЕ -->
+        <div id="instr-mac" class="instruction-section">
+            <div class="coming-soon">
+                <span class="coming-soon-badge">В разработке</span>
+                <div class="coming-soon-icon">🍏</div>
+                <h3 class="coming-soon-title">Инструкция для macOS скоро</h3>
+                <p class="coming-soon-desc">Мы активно работаем над инструкцией для macOS. Следите за обновлениями в нашем новостном канале!</p>
+            </div>
         </div>
+    </div>
 
-        <div class="step">
-            <div class="step-number">4</div>
-            <h3>Подключитесь</h3>
-            <p>Выберите добавленную конфигурацию и нажмите кнопку подключения. Готово!</p>
-        </div>
-    </section>
-
-    <!-- macOS Instructions -->
-    <section class="instructions" id="mac-instructions">
-        <div class="instruction-header">
-            <button class="back-btn" onclick="backToPlatforms()">← Назад</button>
-            <h2>🍎 Установка на macOS</h2>
-        </div>
-        
-        <div class="step">
-            <div class="step-number">1</div>
-            <h3>Скачайте приложение</h3>
-            <p>Установите V2RayXS или V2RayU из раздела релизов на GitHub или по ссылке из бота.</p>
-            <div class="step-image">[Скриншот загрузки]</div>
-        </div>
-
-        <div class="step">
-            <div class="step-number">2</div>
-            <h3>Установите и разрешите</h3>
-            <p>Перетащите приложение в Applications. В настройках безопасности разрешите запуск от неустановленного разработчика.</p>
-            <div class="step-image">[Скриншот настроек безопасности]</div>
-        </div>
-
-        <div class="step">
-            <div class="step-number">3</div>
-            <h3>Запустите и настройте</h3>
-            <p>Откройте приложение из меню бар, импортируйте конфигурацию из бота и подключитесь.</p>
-            <div class="step-image">[Скриншот интерфейса]</div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq-section">
-        <h2 class="section-title">Частые вопросы</h2>
+    <!-- FAQ -->
+    <div class="faq">
+        <h2 class="faq-title">Частые вопросы</h2>
         
         <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
                 <span>Как получить пробный период?</span>
-                <span class="faq-icon">+</span>
+                <div class="faq-icon"></div>
             </div>
-            <div class="faq-answer">
-                Пробный период составляет <strong>24 часа</strong> с полным доступом ко всем серверам. Для активации напишите нашему боту <a href="https://t.me/raylink_service_bot" target="_blank">@raylink_service_bot</a> — менеджер выдаст вам тестовый доступ.
+            <div class="faq-answer-wrapper">
+                <div class="faq-answer">
+                    <p>Пробный период составляет <strong>48 часов</strong>. Для активации нужно перейти в <a href="https://t.me/raylink_service_bot">@raylink_service_bot</a> и нажать кнопку <strong>⚙️ Тестовый период</strong></p>
+                </div>
             </div>
         </div>
-
+        
         <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
                 <span>Можно ли использовать на нескольких устройствах?</span>
-                <span class="faq-icon">+</span>
+                <div class="faq-icon"></div>
             </div>
-            <div class="faq-answer">
-                Да, одна подписка работает на <strong>2 устройствах</strong> одновременно. Вы можете использовать RayLink на телефоне и компьютере. Также профили совместимы с Android TV и Apple TV — подключайте VPN прямо на телевизоре!
+            <div class="faq-answer-wrapper">
+                <div class="faq-answer">
+                    <p>Да, одна подписка работает на <strong>2 устройствах одновременно</strong>. Вы можете использовать RayLink на телефоне и компьютере. Также профили совместимы с <strong>TV</strong> — подключайте VPN прямо на телевизоре!</p>
+                </div>
             </div>
         </div>
-
+        
         <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
                 <span>Какая скорость соединения?</span>
-                <span class="faq-icon">+</span>
+                <div class="faq-icon"></div>
             </div>
-            <div class="faq-answer">
-                Скорость зависит от выбранного сервера и вашего интернет-соединения. В среднем пользователи получают 80-95% от своей базовой скорости.
-            </div>
-        </div>
-
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFaq(this)">
-                <span>Не подключается, что делать?</span>
-                <span class="faq-icon">+</span>
-            </div>
-            <div class="faq-answer">
-                1. Проверьте интернет-соединение без VPN<br>
-                2. Попробуйте другой сервер из списка<br>
-                3. Обновите конфигурацию в боте<br>
-                4. Если ничего не помогает — напишите в поддержку <a href="https://t.me/RayLinkSupport" target="_blank">@RayLinkSupport</a>
+            <div class="faq-answer-wrapper">
+                <div class="faq-answer">
+                    <p>Что касается скорости, то скорость вашего VPN зависит только от скорости вашего интернет-соединения. На самом деле, незначительные падения скорости на <strong>10-20%</strong> совершенно нормальны при использовании VPN, поскольку его главным приоритетом всегда должна быть безопасность и конфиденциальность.</p>
+                </div>
             </div>
         </div>
-
+        
         <div class="faq-item">
             <div class="faq-question" onclick="toggleFaq(this)">
                 <span>Как продлить подписку?</span>
-                <span class="faq-icon">+</span>
+                <div class="faq-icon"></div>
             </div>
-            <div class="faq-answer">
-                Откройте бота <a href="https://t.me/raylink_service_bot" target="_blank">@raylink_service_bot</a>, выберите раздел <strong>"💳 Тарифы (Оплата)"</strong> и следуйте инструкциям. Подписка продлится автоматически после оплаты.
+            <div class="faq-answer-wrapper">
+                <div class="faq-answer">
+                    <p>Откройте бота <a href="https://t.me/raylink_service_bot">@raylink_service_bot</a>, выберите раздел <strong>💳 Тарифы (Оплата)</strong> и следуйте инструкциям. Подписка продлится автоматически после оплаты.</p>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Support Section -->
-    <section class="support-section">
-        <h2 class="section-title">Нужна помощь?</h2>
-        <p style="color: var(--text-muted); margin-bottom: 10px;">Наша поддержка работает 24/7</p>
+    <!-- Поддержка -->
+    <div class="support-section">
+        <p class="support-title">Нужна помощь?</p>
         <div class="support-buttons">
-            <a href="https://t.me/RayLinkSupport" class="support-btn primary" target="_blank">
-                <span>💬</span>
-                <span>Написать в поддержку</span>
+            <a href="https://t.me/RayLinkSupport" class="btn-support btn-primary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.44-.42-1.38-.88.03-.24.38-.49 1.03-.74 4.04-1.76 6.74-2.92 8.09-3.48 3.85-1.6 4.64-1.89 5.17-1.89.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.13-.03.25z"/>
+                </svg>
+                Написать в поддержку
             </a>
-            <a href="https://t.me/raylink_news" class="support-btn secondary" target="_blank">
-                <span>📢</span>
-                <span>Новостной канал</span>
+            <a href="https://t.me/raylink_news" class="btn-support btn-secondary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17L4 17.17V4h16v12z"/>
+                </svg>
+                Новостной канал
             </a>
         </div>
-    </section>
+    </div>
+</div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-links">
-            <a href="https://t.me/raylink_service_bot" target="_blank">Бот</a>
-            <a href="https://t.me/RayLinkSupport" target="_blank">Поддержка</a>
-            <a href="https://t.me/raylink_news" target="_blank">Новости</a>
-        </div>
-        <p>© 2024 RayLink. Все права защищены.</p>
-    </footer>
-
-    <script>
-        // Create floating particles
-        function createParticles() {
-            const container = document.getElementById('particles');
-            const particleCount = 15;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                particle.style.left = Math.random() * 100 + '%';
-                
-                const drift = (Math.random() - 0.5) * 100;
-                particle.style.setProperty('--drift', drift + 'px');
-                
-                const duration = 15 + Math.random() * 10;
-                particle.style.animationDuration = duration + 's';
-                
-                particle.style.animationDelay = (Math.random() * duration) + 's';
-                
-                const size = 2 + Math.random() * 2;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                
-                container.appendChild(particle);
-            }
-        }
-
-        // Open V2RayTun app
-        function openV2RayTun() {
-            window.location.href = 'v2raytun://';
-            setTimeout(() => {
-                alert('Если приложение не открылось автоматически:\n1. Откройте V2RayTun вручную\n2. Нажмите "+"\n3. Выберите "Импорт из буфера обмена"');
-            }, 500);
-        }
-
-        // Show instructions for selected platform
-        function showInstructions(platform) {
-            document.getElementById('platforms').style.display = 'none';
-            
-            const instructions = document.getElementById(platform + '-instructions');
-            instructions.classList.add('active');
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Back to platform selection
-        function backToPlatforms() {
-            document.querySelectorAll('.instructions').forEach(el => {
-                el.classList.remove('active');
-            });
-            
-            document.getElementById('platforms').style.display = 'block';
-            
-            document.getElementById('platforms').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Toggle FAQ
-        function toggleFaq(element) {
-            const item = element.parentElement;
-            const isActive = item.classList.contains('active');
-            
-            document.querySelectorAll('.faq-item').forEach(el => {
-                el.classList.remove('active');
-            });
-            
-            if (!isActive) {
-                item.classList.add('active');
-            }
-        }
-
-        // Initialize
-        createParticles();
-
-        // Add smooth reveal on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.step, .faq-item').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
+<script>
+    function showInstruction(platform, cardElement) {
+        document.querySelectorAll('.platform-card').forEach(card => {
+            card.classList.remove('active');
         });
-    </script>
+        
+        cardElement.classList.add('active');
+
+        document.querySelectorAll('.instruction-section').forEach(sec => {
+            sec.classList.remove('active');
+        });
+        
+        setTimeout(() => {
+            document.getElementById('instr-' + platform).classList.add('active');
+        }, 100);
+    }
+
+    function toggleFaq(element) {
+        const item = element.parentElement;
+        const isActive = item.classList.contains('active');
+        
+        document.querySelectorAll('.faq-item').forEach(faq => {
+            if (faq !== item) {
+                faq.classList.remove('active');
+            }
+        });
+        
+        item.classList.toggle('active');
+    }
+</script>
+
 </body>
 </html>
